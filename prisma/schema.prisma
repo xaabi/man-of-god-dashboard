@@ -1,0 +1,35 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Portfolio {
+  id                   String   @id @default(uuid())
+  corePortfolioIDR     Float    @default(226000000)
+  tacticalPortfolioUSD Float    @default(26000)
+  usdToIdrRate         Float    @default(15800)
+  dailyLossPercent     Float    @default(0.0)
+  maxDrawdownLimit     Float    @default(5.0)
+  updatedAt            DateTime @updatedAt
+}
+
+model TradeLog {
+  id        String   @id @default(uuid())
+  pair      String
+  action    String
+  pnlUSD    Float
+  createdAt DateTime @default(now())
+}
+
+model JournalEntry {
+  id           String   @id @default(uuid())
+  mood         String
+  isCalm       Boolean  @default(true)
+  followedPlan Boolean  @default(true)
+  note         String
+  createdAt    DateTime @default(now())
+}
